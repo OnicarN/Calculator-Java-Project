@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class Calculator {
@@ -39,6 +41,10 @@ public class Calculator {
 
     String[] rightSymbols = {"÷", "×", "-", "+", "="};
     String[] topSymbols = {"AC", "+/-", "%"};
+
+    String a = "0";
+    String operator = null;
+    String b = null;
 
 
 
@@ -106,6 +112,77 @@ public class Calculator {
                 }
 
             buttonsPanel1.add(button);
+
+
+             //At this point we are creating the logic of the buttons
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton button = (JButton) e.getSource();
+                    String bottonValue = button.getText();
+                    if (Arrays.asList(rightSymbols).contains(buttonValue)){
+                        if (bottonValue.equals("=")){
+                            if (a != null){
+                                b = displayLabel.getText();
+                                int firstNumber = Integer.parseInt(a);
+                                int secondNumber = Integer.parseInt(b);
+                                if (operator.equals("+")){
+                                        int resultado = firstNumber + secondNumber;
+                                        displayLabel.setText(Integer.toString(resultado));
+                                        clearAll();
+                                }
+
+                            }
+
+                        }
+                        else if ("÷+-×".contains(bottonValue)) {
+                            if (operator == null){
+                                a = displayLabel.getText();
+                                displayLabel.setText("0");
+                                b = "0";
+                            }
+                            operator = buttonValue;
+                        }
+
+
+                    }else if (Arrays.asList(topSymbols).contains(buttonValue)){
+                            if (bottonValue.equals("AC")){
+                                clearAll();
+                                displayLabel.setText("0");
+                            } else if (bottonValue.equals("+/-")) {
+                                double numDisplay = Double.parseDouble(displayLabel.getText());
+                                numDisplay *= -1;
+                                displayLabel.setText(Double.toString(numDisplay));
+                            } else {
+
+                            }
+                    }else{
+                        if (bottonValue.equals(".")){
+
+                            if (!displayLabel.getText().contains(bottonValue)){
+                                displayLabel.setText(displayLabel.getText() + ".");
+                            }
+
+                        } else if ("0123456789".contains(bottonValue)) {
+                            if (displayLabel.getText().equals("0")){
+                                displayLabel.setText(buttonValue);
+                            }else{
+                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                            }
+                        }
+                    }
+
+                }
+                void clearAll (){
+                    a = "0";
+                    operator = null;
+                    b = null;
+                }
+            });
+
+
+
+
         }
 
 
