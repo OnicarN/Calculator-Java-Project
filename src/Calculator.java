@@ -52,7 +52,7 @@ public class Calculator {
     public Calculator (){
 
         //we are making a visible window
-        frame.setVisible(true);
+        //frame.setVisible(true);
         //we are making the dimensions of the window
         frame.setSize(boardWidth,boardHeight);
 
@@ -130,6 +130,15 @@ public class Calculator {
                                         int resultado = firstNumber + secondNumber;
                                         displayLabel.setText(Integer.toString(resultado));
                                         clearAll();
+                                } else if (operator.equals("-")) {
+                                    displayLabel.setText(Integer.toString(firstNumber-secondNumber));
+                                    clearAll();
+                                } else if (operator.equals("÷")) {
+                                    displayLabel.setText(Integer.toString(firstNumber/secondNumber));
+                                    clearAll();
+                                } else if (operator.equals("×")) {
+                                    displayLabel.setText(Integer.toString(firstNumber*secondNumber));
+                                    clearAll();
                                 }
 
                             }
@@ -155,6 +164,10 @@ public class Calculator {
                                 displayLabel.setText(Double.toString(numDisplay));
                             } else {
 
+                                int numDisplay = Integer.parseInt(displayLabel.getText());
+                                numDisplay /= 100;
+                                displayLabel.setText(Integer.toString(numDisplay));
+
                             }
                     }else{
                         if (bottonValue.equals(".")){
@@ -167,7 +180,7 @@ public class Calculator {
                             if (displayLabel.getText().equals("0")){
                                 displayLabel.setText(buttonValue);
                             }else{
-                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                                displayLabel.setText(displayLabel.getText()+bottonValue);
                             }
                         }
                     }
@@ -187,7 +200,7 @@ public class Calculator {
 
 
 
-
+        frame.setVisible(true);
     }
 
 
